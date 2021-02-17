@@ -10,6 +10,9 @@ class Sets {
 public:
 	Sets(string name) :name(name) {
 	}
+	
+	Sets(const Sets& copyFrom) : name(copyFrom.name), elems(copyFrom.elems)
+	{}
 
 	size_t Power() {
 		return elems.size();
@@ -21,12 +24,15 @@ public:
 	}
 
 	void DeleteEl(string el) {
-		elems.remove(el);
+		if (CheckEl(el))
+			elems.remove(el);
+		else
+			cout << "\t" << "No such element";
 	}
 
 	bool CheckEl(string el) {
 		auto place = FindPlace(el);
-		if (*place == el)
+		if (place != elems.end() && *place == el)
 			return true;
 		return false;
 	}
@@ -38,9 +44,21 @@ public:
 		}
 	}
 
-	~Sets() {
-		elems.clear();
+	
+	Sets& operator=(const Sets& copyFrom)
+	{
+		if (this != &copyFrom)
+		{
+			name = copyFrom.name;
+			elems = copyFrom.elems;
+		}
+		return *this;
 	}
+
+
+	/*~Sets() {
+		elems.clear();
+	}*/
 
 	string name;
 private:

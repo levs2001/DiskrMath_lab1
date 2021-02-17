@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 class Interface {
 public:
 	Interface() {
@@ -48,9 +49,16 @@ public:
 		}
 		else if (command == "WorkWithSet") {
 			string name = GetStr();
+			auto set = FindPlace(name);
+			if (set != setsList.end() && set->name == name)
+				WorkWithSet(set);
+			else
+				cout << "\t" << "No such set";
+
 		}
 		else if (command == "WorkWith2Sets") {
 			string name1 = GetStr(), name2 = GetStr();
+			WorkWith2Sets(name1, name2);
 		}
 		else if (command == "PrintSets") {
 			if (setsList.begin() == setsList.end())
@@ -105,5 +113,31 @@ private:
 		for (; set != setsList.end() && set->name < name; set++) {
 		}
 		return set;
+	}
+
+	void WorkWithSet(list<Sets>::iterator set) {
+		string command = GetStr();
+		if (command == "PrintPower") {
+			cout << set->Power();
+		}
+		else if (command == "AddElement") {
+			string el = GetStr();
+			set->AddEl(el);
+		}
+		else if (command == "DeleteElement") {
+			string el = GetStr();
+			set->DeleteEl(el);
+		}
+		else if (command == "CheckElement") {
+			string el = GetStr();
+			if (set->CheckEl(el))
+				cout << "\t" << "In set";
+			else
+				cout << "\t" << "Not in set";
+		}
+	}
+
+	void WorkWith2Sets(list<Sets>::iterator set1, list<Sets>::iterator set2) {
+
 	}
 };
