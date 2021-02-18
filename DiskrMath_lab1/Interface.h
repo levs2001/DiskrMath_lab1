@@ -28,7 +28,6 @@ public:
 			if (placeAfter == setsList.end() || placeAfter->name != name) {
 				auto set = setsList.insert(placeAfter, name);
 				cout << "\t" << "Set inseted, insert elements or write EndProcess" << endl;
-				//HACK: Добавить возможность создавать элементы с пробелами
 				string el = GetStr(LINE);
 				while (el != "EndProcess") {
 					set->AddEl(el);
@@ -59,12 +58,15 @@ public:
 
 		}
 		else if (command == "WorkWith2Sets") {
+			cout << "\t" << "Tap two name of sets:" << endl;
 			string name1 = GetStr();
 			auto set1 = FindPlace(name1);
 			string name2 = GetStr();
 			auto set2 = FindPlace(name2);
-			if (set1 != setsList.end() && set2 != setsList.end() && set1->name == name1 && set2->name == name2)
+			if (set1 != setsList.end() && set2 != setsList.end() && set1->name == name1 && set2->name == name2) {
+				cout << "\t" << "In WorkWith2Sets mode" << endl;
 				WorkWith2Sets(set1, set2);
+			}
 			else
 				cout << "\t" << "No such set";
 		}
@@ -115,9 +117,7 @@ private:
 
 	list<Sets>::iterator FindPlace(string name) {
 		auto set = setsList.begin();
-		/*if (set == setsList.end())
-			return set;*/
-
+		
 		for (; set != setsList.end() && set->name < name; set++) {
 		}
 		return set;
@@ -153,27 +153,42 @@ private:
 	}
 
 	void WorkWith2Sets(list<Sets>::iterator set1, list<Sets>::iterator set2) {
+		cout << "\t" << "Tap command:";
 		string command = GetStr();
 		while (command != "EndProcess") {
 			if (command == "Union") {
-
+				InsForCom(setsOper::Union, set1, set2);
 			}
 			else if (command == "Intersection") {
-
+				InsForCom(setsOper::Intersection, set1, set2);
 			}
 			else if (command == "Difference") {
-
+				InsForCom(setsOper::Difference, set1, set2);
 			}
 			else if (command == "SymetricDifference") {
-
+				InsForCom(setsOper::SymetricDifference, set1, set2);
 			}
 			else if (command == "Inclusion") {
-
+				string ans = set1->Inclusion(*set2) ? "Included" : "Not included";
+				cout << "\t" << ans <<endl;
 			}
 			else {
 				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
 			}
 			cin >> command;
 		}
+	}
+
+	void InsForCom(Sets(*Command)(const Sets&, const Sets&, string), list<Sets>::iterator set1, list<Sets>::iterator set2) {
+		cout << "\t" << "Tap name of new set to save:";
+		string name = GetStr();
+		auto placeAfter = FindPlace(name);
+
+		if (placeAfter == setsList.end() || placeAfter->name != name) {
+			setsList.insert(placeAfter, Command(*set1, *set2, name));
+			cout << "\t" << "Created" << endl;
+		}
+		else
+			cout << "\t" << "There is a set with this name, now you are in main menu" << endl;
 	}
 };
