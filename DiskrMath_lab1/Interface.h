@@ -153,6 +153,27 @@ private:
 	}
 
 	void WorkWith2Sets(list<Sets>::iterator set1, list<Sets>::iterator set2) {
+		string command = GetStr();
+		while (command != "EndProcess") {
+			if (command == "Union") {
 
+			}
+			else if (command == "Intersection") {
+
+			}
+			else if (command == "Difference") {
+
+			}
+			else if (command == "SymetricDifference") {
+
+			}
+			else if (command == "Inclusion") {
+
+			}
+			else {
+				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
+			}
+			cin >> command;
+		}
 	}
 };
