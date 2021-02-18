@@ -27,7 +27,7 @@ public:
 
 			if (placeAfter == setsList.end() || placeAfter->name != name) {
 				auto set = setsList.insert(placeAfter, name);
-				cout << "\t" << "Set inseted, insert els or write EndProcess" << endl;
+				cout << "\t" << "Set inseted, insert elements or write EndProcess" << endl;
 				//HACK: Добавить возможность создавать элементы с пробелами
 				string el = GetStr(LINE);
 				while (el != "EndProcess") {
@@ -37,7 +37,7 @@ public:
 				cout << "\t" << "Created" << endl;
 			}
 			else
-				cout << "\t" << "There is a set with this name";
+				cout << "\t" << "There is a set with this name" << endl;
 		}
 		else if (command == "DeleteSet") {
 			string name = GetStr();
@@ -50,15 +50,23 @@ public:
 		else if (command == "WorkWithSet") {
 			string name = GetStr();
 			auto set = FindPlace(name);
-			if (set != setsList.end() && set->name == name)
+			if (set != setsList.end() && set->name == name) {
+				cout << "\t" << "In WorkWithSet mode" << endl;
 				WorkWithSet(set);
+			}
 			else
 				cout << "\t" << "No such set";
 
 		}
 		else if (command == "WorkWith2Sets") {
-			string name1 = GetStr(), name2 = GetStr();
-			WorkWith2Sets(name1, name2);
+			string name1 = GetStr();
+			auto set1 = FindPlace(name1);
+			string name2 = GetStr();
+			auto set2 = FindPlace(name2);
+			if (set1 != setsList.end() && set2 != setsList.end() && set1->name == name1 && set2->name == name2)
+				WorkWith2Sets(set1, set2);
+			else
+				cout << "\t" << "No such set";
 		}
 		else if (command == "PrintSets") {
 			if (setsList.begin() == setsList.end())
@@ -117,23 +125,30 @@ private:
 
 	void WorkWithSet(list<Sets>::iterator set) {
 		string command = GetStr();
-		if (command == "PrintPower") {
-			cout << set->Power();
-		}
-		else if (command == "AddElement") {
-			string el = GetStr();
-			set->AddEl(el);
-		}
-		else if (command == "DeleteElement") {
-			string el = GetStr();
-			set->DeleteEl(el);
-		}
-		else if (command == "CheckElement") {
-			string el = GetStr();
-			if (set->CheckEl(el))
-				cout << "\t" << "In set";
-			else
-				cout << "\t" << "Not in set";
+		while (command != "EndProcess") {
+			if (command == "PrintPower") {
+				cout << set->Power() << endl;
+			}
+			else if (command == "AddElement") {
+				cout << "\t" << "Pass element" << endl;
+				string el = GetStr();
+				set->AddEl(el);
+			}
+			else if (command == "DeleteElement") {
+				string el = GetStr();
+				set->DeleteEl(el);
+			}
+			else if (command == "CheckElement") {
+				string el = GetStr();
+				if (set->CheckEl(el))
+					cout << "\t" << "In set" << endl;
+				else
+					cout << "\t" << "Not in set" << endl;
+			}
+			else {
+				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
+			}
+			cin >> command;
 		}
 	}
 

@@ -10,7 +10,7 @@ class Sets {
 public:
 	Sets(string name) :name(name) {
 	}
-	
+
 	Sets(const Sets& copyFrom) : name(copyFrom.name), elems(copyFrom.elems)
 	{}
 
@@ -20,7 +20,12 @@ public:
 
 	void AddEl(string el) {
 		auto placeAfter = FindPlace(el);
-		elems.insert(placeAfter, el);
+		if (placeAfter != elems.end() && el == *placeAfter)
+			cout << "\t" << "There is this element already" << endl;
+		else {
+			elems.insert(placeAfter, el);
+			cout << "\t" << "Inserted" << endl;
+		}
 	}
 
 	void DeleteEl(string el) {
@@ -44,7 +49,7 @@ public:
 		}
 	}
 
-	
+
 	Sets& operator=(const Sets& copyFrom)
 	{
 		if (this != &copyFrom)
@@ -69,7 +74,7 @@ private:
 		/*if (elem == elems.end())
 			return elem;*/
 
-		for (elem; elem != elems.end() && *elem < name; elem++) {
+		for (elem; elem != elems.end() && *elem < el; elem++) {
 		};
 		return elem;
 	}
