@@ -30,7 +30,9 @@ public:
 
 	void AddEl(string el) {
 		auto placeAfter = FindPlace(el);
-		if (placeAfter != elems.end() && el == *placeAfter)
+		if (el.size() > 80)
+			cout << "\t" << "Too many syms, max = 80" << endl;
+		else if (placeAfter != elems.end() && el == *placeAfter)
 			cout << "\t" << "There is this element already" << endl;
 		else {
 			elems.insert(placeAfter, el);

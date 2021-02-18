@@ -18,7 +18,26 @@ public:
 	void CheckCommand(string command) {
 		if (command == "Help") {
 			cout << "Interface works with commands" << endl << "Command list:" << endl;
-			cout << "CreateSet name" << "\t" << "after that com you need to write all els and than write EndProcess com" << endl;
+			cout << "\"Exit\"" << "\t" << "This command ends work of programm, if you are in main menu" << endl;
+			cout << "\"CreateSet name\"" << "\t" << "After that com you need to write all elements and than write \"EndProcess\"" << endl;
+			cout << "\"DeleteSet name\"" << "\t" << "This com will delete set" << endl;
+			cout << "\"PrintSet name\"" << "\t" << "This com will write all elements of given set" << endl;
+			cout << "\"PrintSets name\"" << "\t" << "This com will write all names of sets" << endl;
+
+			cout << "\"WorkWithSet name\"" << "\t" << "This com moves you in WorkWithSet mode, to go out from this mode tap \"EndProcess\". Here you have coms:" << endl;
+			cout << "\t" << "AddElement" << endl;
+			cout << "\t" << "DeleteElement" << endl;
+			cout << "\t" << "Power" << endl;
+			cout << "\t" << "CheckElement" << endl;
+
+			cout << "\"WorkWith2Sets\"" << "\t" << "After that com you shoud tap two names of sets,"
+				<< "This com moves you in WorkWith2Sets mode, to go out from this mode tap \"EndProcess\". Here you have coms:" << endl;
+			cout << "\t" << "Union" << endl;
+			cout << "\t" << "Intersection" << endl;
+			cout << "\t" << "Difference" << endl;
+			cout << "\t" << "SymetricDifference" << endl;
+			cout << "\t" << "Inclusion" << endl;
+			cout << "Also after some coms interface print info about what you should write. Good luck!" << endl << endl;
 			//HACK: Дописать справку
 		}
 		else if (command == "CreateSet") {
@@ -41,10 +60,12 @@ public:
 		else if (command == "DeleteSet") {
 			string name = GetStr();
 			auto set = FindPlace(name);
-			if (set != setsList.end() && set->name == name)
+			if (set != setsList.end() && set->name == name) {
 				setsList.erase(set);
+				cout << "\t" << "Set deleted" << endl;
+			}
 			else
-				cout << "\t" << "No such set";
+				cout << "\t" << "No such set" << endl;
 		}
 		else if (command == "WorkWithSet") {
 			string name = GetStr();
@@ -68,7 +89,7 @@ public:
 				WorkWith2Sets(set1, set2);
 			}
 			else
-				cout << "\t" << "No such set";
+				cout << "\t" << "No such set" << endl;
 		}
 		else if (command == "PrintSets") {
 			if (setsList.begin() == setsList.end())
@@ -82,7 +103,7 @@ public:
 			string name = GetStr();
 			auto set = FindPlace(name);
 
-			if (set->name != name) {
+			if (set != setsList.end() && set->name != name) {
 				cout << "\t" << "No such set" << endl;
 			}
 			else {
@@ -117,7 +138,7 @@ private:
 
 	list<Sets>::iterator FindPlace(string name) {
 		auto set = setsList.begin();
-		
+
 		for (; set != setsList.end() && set->name < name; set++) {
 		}
 		return set;
@@ -126,7 +147,7 @@ private:
 	void WorkWithSet(list<Sets>::iterator set) {
 		string command = GetStr();
 		while (command != "EndProcess") {
-			if (command == "PrintPower") {
+			if (command == "Power") {
 				cout << set->Power() << endl;
 			}
 			else if (command == "AddElement") {
@@ -153,7 +174,7 @@ private:
 	}
 
 	void WorkWith2Sets(list<Sets>::iterator set1, list<Sets>::iterator set2) {
-		cout << "\t" << "Tap command:";
+		cout << "\t" << "Tap command:" << endl;
 		string command = GetStr();
 		while (command != "EndProcess") {
 			if (command == "Union") {
@@ -170,7 +191,7 @@ private:
 			}
 			else if (command == "Inclusion") {
 				string ans = set1->Inclusion(*set2) ? "Included" : "Not included";
-				cout << "\t" << ans <<endl;
+				cout << "\t" << ans << endl;
 			}
 			else {
 				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
@@ -180,7 +201,7 @@ private:
 	}
 
 	void InsForCom(Sets(*Command)(const Sets&, const Sets&, string), list<Sets>::iterator set1, list<Sets>::iterator set2) {
-		cout << "\t" << "Tap name of new set to save:";
+		cout << "\t" << "Tap name of new set to save:" << endl;
 		string name = GetStr();
 		auto placeAfter = FindPlace(name);
 
