@@ -11,9 +11,9 @@ using namespace std;
 
 class Interface {
 public:
-	Interface() {
-		//	CheckCommand();
-	}
+	//Interface() {
+	//	//	CheckCommand();
+	//}
 
 	void CheckCommand(string command) {
 		if (command == "Help") {
@@ -24,21 +24,23 @@ public:
 			cout << "\"PrintSet name\"" << "\t" << "This com will write all elements of given set" << endl;
 			cout << "\"PrintSets name\"" << "\t" << "This com will write all names of sets" << endl;
 
-			cout << "\"WorkWithSet name\"" << "\t" << "This com moves you in WorkWithSet mode, to go out from this mode tap \"EndProcess\". Here you have coms:" << endl;
+			cout << "\"WorkWithSet name\"" << "\t" << "This com moves you in WorkWithSet mode, to go out from this mode tap \"EndProcess\". After any command pass enter, and than element, if need."
+				<<" Here you have coms:" << endl;
 			cout << "\t" << "AddElement" << endl;
 			cout << "\t" << "DeleteElement" << endl;
 			cout << "\t" << "Power" << endl;
 			cout << "\t" << "CheckElement" << endl;
 
-			cout << "\"WorkWith2Sets\"" << "\t" << "After that com you shoud tap two names of sets,"
+			cout << "\"WorkWith2Sets\"" << "\t" << "After that com you shoud tap enter and then two names of sets with enter between,"
 				<< "This com moves you in WorkWith2Sets mode, to go out from this mode tap \"EndProcess\". Here you have coms:" << endl;
 			cout << "\t" << "Union" << endl;
 			cout << "\t" << "Intersection" << endl;
 			cout << "\t" << "Difference" << endl;
 			cout << "\t" << "SymetricDifference" << endl;
-			cout << "\t" << "Inclusion" << endl;
+			cout << "\t" << "Inclusion" << endl <<endl;
+
+			cout << "\t" << "Warning: when you are working in any mode(set, 2sets), you should pass enter after all commands! ";
 			cout << "Also after some coms interface print info about what you should write. Good luck!" << endl << endl;
-			//HACK: Дописать справку
 		}
 		else if (command == "CreateSet") {
 			string name = GetStr();
@@ -119,19 +121,17 @@ public:
 		string str;
 		if (getLine) {
 			getline(cin, str);
-			return str;
 		}
 		else {
 			string rub;
 			cin >> str;
 			getline(cin, rub);
-			return str;
 		}
-
+		return str;
 	}
 
 	~Interface() {
-
+		setsList.clear();
 	}
 private:
 	list<Sets> setsList;
@@ -152,15 +152,15 @@ private:
 			}
 			else if (command == "AddElement") {
 				cout << "\t" << "Pass element" << endl;
-				string el = GetStr();
+				string el = GetStr(LINE);
 				set->AddEl(el);
 			}
 			else if (command == "DeleteElement") {
-				string el = GetStr();
+				string el = GetStr(LINE);
 				set->DeleteEl(el);
 			}
 			else if (command == "CheckElement") {
-				string el = GetStr();
+				string el = GetStr(LINE);
 				if (set->CheckEl(el))
 					cout << "\t" << "In set" << endl;
 				else
@@ -169,7 +169,7 @@ private:
 			else {
 				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
 			}
-			cin >> command;
+			command = GetStr();
 		}
 	}
 
@@ -196,7 +196,7 @@ private:
 			else {
 				cout << "There is no such command in this mode, tap EndProcess for main menu" << endl;
 			}
-			cin >> command;
+			command = GetStr();
 		}
 	}
 

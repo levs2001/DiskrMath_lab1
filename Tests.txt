@@ -1,15 +1,45 @@
+
+	Set tests:
 CreateSet lol
 EndProcess
 CreateSet lolNew
 EndProcess
 PrintSets
-DeleteSet lol
+DeleteSet
+lol
 PrintSets
-CreateSet NotEmptySet
+CreateSet
+NotEmptySet
 el1 yeah ahaha
 EndProcess
 PrintSets
-PrintSet NotEmptySet
+PrintSet
+NotEmptySet
+
+	WorkWithSet tests:
+CreateSet Set1
+C
+B
+D
+A
+EndProcess
+WorkWithSet Set1
+AddElement
+lol10
+AddElement
+lol9 ! ?+- * / = %\|( )[ ]{ } < > ~ '~
+DeleteElement
+B
+CheckElement
+C
+EndProcess
+PrintSet Set1
+WorkWithSet Set1
+DeleteElement
+lol9 ! ?+- * / = %\|( )[ ]{ } < > ~ '~
+EndProcess
+PrintSet Set1
+Exit
 
 CreateSet Set1
 EndProcess
@@ -20,11 +50,88 @@ AddElement
 el1
 AddElement
 fl1
-CheckElement el1
-CheckElement NOEL
-DeleteElement el1
-PrintPower
-AddElement lol
-PrintPower
+CheckElement
+el1
+CheckElement
+NOEL
+DeleteElement
+el1
+Power
+AddElement
+lol
+Power
 EndProcess
 PrintSet Set1
+
+
+	WorkWith2Sets tests:
+CreateSet Set1
+C
+B
+D
+A
+EndProcess
+CreateSet Set2
+L
+B
+D
+F
+E103}
+EndProcess
+WorkWith2Sets
+Set1
+Set2
+Union
+UnitedSet
+Intersection
+InterSectedSet
+Difference
+DifferenceSet
+SymetricDifference
+SymetricDifferenceSet
+Inclusion
+EndProcess
+PrintSet
+UnitedSet
+PrintSet
+InterSectedSet
+PrintSet
+DifferenceSet
+PrintSet
+SymetricDifferenceSet
+Exit
+
+	Inclusion:
+CreateSet Set1
+C
+B
+D
+A
+F
+E103}
+EndProcess
+CreateSet Set2
+L
+B
+D
+F
+E103}
+EndProcess
+WorkWith2Sets
+Set1
+Set2
+Inclusion
+EndProcess
+WorkWithSet Set2
+DeleteElement
+L
+EndProcess
+PrintSet Set1
+PrintSet Set2
+WorkWith2Sets
+Set1
+Set2
+Inclusion
+EndProcess
+Exit
+

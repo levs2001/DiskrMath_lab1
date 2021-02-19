@@ -74,22 +74,20 @@ public:
 				elemIncl++;
 				elem++;
 			}
-			return elemIncl == inclSet.elems.end();
 		}
+		return elemIncl == inclSet.elems.end();
 	}
 
-	/*~Sets() {
+	~Sets() {
 		elems.clear();
-	}*/
+	}
 
 	string name;
 	list<string> elems;
 private:
 	list<string>::iterator FindPlace(string el) {
 		auto elem = elems.begin();
-		/*if (elem == elems.end())
-			return elem;*/
-
+	
 		for (elem; elem != elems.end() && *elem < el; elem++) {
 		};
 		return elem;
