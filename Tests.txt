@@ -15,6 +15,7 @@ EndProcess
 PrintSets
 PrintSet
 NotEmptySet
+Exit
 
 	WorkWithSet tests:
 CreateSet Set1
@@ -62,6 +63,7 @@ lol
 Power
 EndProcess
 PrintSet Set1
+Exit
 
 
 	WorkWith2Sets tests:
@@ -134,4 +136,5 @@ Set2
 Inclusion
 EndProcess
 Exit
+
 
