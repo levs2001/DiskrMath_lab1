@@ -31,9 +31,12 @@ public:
 	void AddEl(string el) {
 		auto placeAfter = FindPlace(el);
 		if (el.size() > 80)
-			cout << "\t" << "Too many syms, max = 80" << endl;
+			cout << "\t" << "Too many syms, max = 80!" << endl;
+		else if (CheckIncorrectSyms(el)) {
+			cout << "\t" << "Incorrect syms!" << endl;
+		}
 		else if (placeAfter != elems.end() && el == *placeAfter)
-			cout << "\t" << "There is this element already" << endl;
+			cout << "\t" << "There is this element already!" << endl;
 		else {
 			elems.insert(placeAfter, el);
 			cout << "\t" << "Inserted" << endl;
@@ -87,11 +90,21 @@ public:
 private:
 	list<string>::iterator FindPlace(string el) {
 		auto elem = elems.begin();
-	
+
 		for (elem; elem != elems.end() && *elem < el; elem++) {
 		};
 		return elem;
 	}
+
+	bool CheckIncorrectSyms(string el) {
+		for (char& c : el) {
+			if (c == '"' || c < 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 };
 
 namespace setsOper {

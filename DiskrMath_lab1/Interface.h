@@ -11,10 +11,6 @@ using namespace std;
 
 class Interface {
 public:
-	//Interface() {
-	//	//	CheckCommand();
-	//}
-
 	void CheckCommand(string command) {
 		if (command == "Help") {
 			cout << "Interface works with commands" << endl << "Command list:" << endl;
@@ -22,10 +18,10 @@ public:
 			cout << "\"CreateSet name\"" << "\t" << "After that com you need to write all elements and than write \"EndProcess\"" << endl;
 			cout << "\"DeleteSet name\"" << "\t" << "This com will delete set" << endl;
 			cout << "\"PrintSet name\"" << "\t" << "This com will write all elements of given set" << endl;
-			cout << "\"PrintSets name\"" << "\t" << "This com will write all names of sets" << endl;
+			cout << "\"PrintSets\"" << "\t" << "This com will write all names of sets" << endl;
 
 			cout << "\"WorkWithSet name\"" << "\t" << "This com moves you in WorkWithSet mode, to go out from this mode tap \"EndProcess\". After any command pass enter, and than element, if need."
-				<<" Here you have coms:" << endl;
+				<< " Here you have coms:" << endl;
 			cout << "\t" << "AddElement" << endl;
 			cout << "\t" << "DeleteElement" << endl;
 			cout << "\t" << "Power" << endl;
@@ -37,7 +33,7 @@ public:
 			cout << "\t" << "Intersection" << endl;
 			cout << "\t" << "Difference" << endl;
 			cout << "\t" << "SymetricDifference" << endl;
-			cout << "\t" << "Inclusion" << endl <<endl;
+			cout << "\t" << "Inclusion" << endl << endl;
 
 			cout << "\t" << "Warning: when you are working in any mode(set, 2sets), you should pass enter after all commands! ";
 			cout << "Also after some coms interface print info about what you should write. Good luck!" << endl << endl;
@@ -126,6 +122,9 @@ public:
 			string rub;
 			cin >> str;
 			getline(cin, rub);
+			if (rub != "") {
+				cout << "\t" << "All coms after the first were ignored, check warning!" << endl;
+			}
 		}
 		return str;
 	}
