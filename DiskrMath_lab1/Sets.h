@@ -38,11 +38,14 @@ public:
 		else if (placeAfter != elems.end() && el == *placeAfter)
 			cout << "\t" << "There is this element already!" << endl;
 		else {
+			if (CheckStrSpace(el))
+				AddBorders(el);
 			elems.insert(placeAfter, el);
 			cout << "\t" << "Inserted" << endl;
 		}
 	}
 
+	
 	void DeleteEl(string el) {
 		if (CheckEl(el))
 			elems.remove(el);
@@ -105,6 +108,18 @@ private:
 		return false;
 	}
 
+	bool CheckStrSpace(const string& el) {
+		for (auto sym : el) {
+			if (sym != ' ')
+				return false;
+		}
+		return true;
+	}
+
+	void AddBorders(string& el) {
+		el.insert(0, "\"");
+		el += "\"";
+	}
 };
 
 namespace setsOper {
